@@ -17,11 +17,17 @@ export const getProducts = async (req, res) => {
 };
 
 export const getProductById = async (req, res) => {
-  const product = await Product.findById(req.params.productId);
-  if (!product) {
-    return res.status(404).json({ message: "product not found" });
+  try {
+    const product = await Product.findById(req.params.productId);
+    if (!product) {
+      return res.status(404).json({ message: "product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    return res
+      .status(404)
+      .json({ message: "product not found and bad params" });
   }
-  res.status(200).json(product);
 };
 
 export const updateProductById = async (req, res) => {
@@ -36,7 +42,13 @@ export const updateProductById = async (req, res) => {
 };
 
 export const deleteProductById = async (req, res) => {
-  await Product.findByIdAndRemove(req.params.productId);
+  try {
+    await Product.findByIdAndRemove(req.params.productId);
 
-  res.status(204).json();
+    res.status(200).json({ message: "product deleted" });
+  } catch (error) {
+    return res
+      .status(404)
+      .json({ message: "product not found and bad params" });
+  }
 };
