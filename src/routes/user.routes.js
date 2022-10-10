@@ -4,9 +4,14 @@ import * as userCtrl from "../controllers/user.controller";
 import { authJwt, verifySignup } from "../middlewares";
 
 router.post(
-  "/",
-  [authJwt.verifyToken, authJwt.isAdmin, verifySignup.checkRolesExisted],
-  userCtrl.createUser
+  "/signup",
+  [
+    authJwt.verifyToken,
+    authJwt.isAdmin,
+    verifySignup.checkRolesExisted,
+    verifySignup.checkDuplicateUserOrEmail,
+  ],
+  userCtrl.signUp
 );
 
 export default router;

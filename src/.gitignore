@@ -2,4 +2,10 @@
 
 .env
 
-/config.js
+config.js
+
+config
+
+/config
+
+./config.js
