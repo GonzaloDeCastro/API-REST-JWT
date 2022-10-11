@@ -1,6 +1,6 @@
+require("dotenv").config();
 import User from "../models/User";
 import Role from "../models/Role";
-import config from "../config";
 import jwt from "jsonwebtoken";
 
 export const signUp = async (req, res) => {
@@ -23,7 +23,7 @@ export const signUp = async (req, res) => {
   const savedUser = await newUser.save();
   console.log(savedUser);
 
-  const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
+  const token = jwt.sign({ id: savedUser._id }, process.env.SECRET, {
     expiresIn: 86400, //24 hours
   });
   res.status(200).json({ token });

@@ -1,7 +1,6 @@
+require("dotenv").config();
 import User from "../models/User";
 import jwt from "jsonwebtoken";
-import config from "../config";
-import Role from "../models/Role";
 
 export const signIn = async (req, res) => {
   const userFound = await User.findOne({ email: req.body.email }).populate(
@@ -18,7 +17,7 @@ export const signIn = async (req, res) => {
   if (!matchPassword)
     return res.status(401).json({ token: null, message: "Invalid password" });
 
-  const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+  const token = jwt.sign({ id: userFound._id }, process.env.SECRET, {
     expiresIn: 86400,
   });
 

@@ -1,7 +1,6 @@
 require("dotenv").config();
 import mongoose from "mongoose";
-const conexion_bd =
-  "mongodb+srv://gonzamdc:4912806@cluster0.lmhtr.mongodb.net/Database_GonzaDC?retryWrites=true&w=majority";
+const conexion_bd = process.env.DB_GONZADC;
 
 mongoose
   .connect(conexion_bd)
