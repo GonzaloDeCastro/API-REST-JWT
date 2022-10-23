@@ -14,4 +14,10 @@ router.post(
   userCtrl.signUp
 );
 
+router.get("/all", userCtrl.getUsers);
+
+router.get("/id/:userId", userCtrl.getUserId);
+
+router.get("/role/:userRol", userCtrl.getUserByRole);
+
 export default router;

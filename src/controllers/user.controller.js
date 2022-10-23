@@ -32,3 +32,25 @@ export const signUp = async (req, res) => {
 export const createUser = (req, res) => {
   res.json("creating user");
 };
+
+export const getUsers = async (req, res) => {
+  const users = await User.find();
+
+  res.status(200).json(users);
+};
+
+export const getUserId = async (req, res) => {
+  const user = await User.findById(req.params.userId, { password: 0 });
+  if (!user) {
+    return res.status(404).send("No user found.");
+  }
+  res.status(200).json(user);
+};
+
+export const getUserByRole = async (req, res) => {
+  const role = await User.find({ roles: req.params.userRol }, { password: 0 });
+  if (!role) {
+    return res.status(404).send("No user found.");
+  }
+  res.status(200).json(role);
+};
